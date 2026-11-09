@@ -38,7 +38,7 @@ export function createGameScreen({ onGameOver }) {
 
   function renderHud(s) {
     setText('score', hud.score, fmt(s.score));
-    setText('lives', hud.lives, '♥'.repeat(Math.max(0, s.lives)) + '♡'.repeat(Math.max(0, s.maxLives - s.lives)));
+    setText('lives', hud.lives, '■'.repeat(Math.max(0, s.lives)) + '□'.repeat(Math.max(0, s.maxLives - s.lives)));
     setText('combo', hud.combo, s.combo > 0 ? `${s.combo} ×${s.multiplier}` : '0');
     setText('words', hud.words, fmt(s.destroyed));
     setText('level', hud.level, String(s.level));

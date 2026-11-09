@@ -17,8 +17,8 @@ export function createStatsScreen() {
         el('tbody', {}, rows.map((r) => el('tr', {}, r.map((c) => el('td', { text: c })))))));
 
   function render() {
-    if (status === 'loading' && !data) return body.replaceChildren(el('p', { class: 'hint', text: t('stats.loading') }));
-    if (status === 'error' && !data) return body.replaceChildren(el('p', { class: 'hint', text: t('stats.loadFailed') }));
+    if (status === 'loading' && !data) return body.replaceChildren(el('p', { class: 'meta', text: t('stats.loading') }));
+    if (status === 'error' && !data) return body.replaceChildren(el('p', { class: 'meta', text: t('stats.loadFailed') }));
     if (!data) return body.replaceChildren();
     if (data.totals.games === 0) return body.replaceChildren(el('p', { class: 'empty', text: t('stats.empty') }));
 

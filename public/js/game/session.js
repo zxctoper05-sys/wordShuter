@@ -75,26 +75,24 @@ export class GameSession {
       bus.on('shoot', (p) => {
         r.recoil = 1;
         r.aim = p.angle;
-        fx.burst(p.x, p.y, c.cyan, 6, 160);
       }),
       bus.on('hit', (p) => {
-        fx.burst(p.x, p.y, p.tier >= 4 ? c.magenta : c.cyan, 22, 300);
-        fx.burst(p.x, p.y, '#ffffff', 8, 180);
-        fx.ring(p.x, p.y, c.cyan, 36 + p.w * 0.18);
-        fx.shake(3);
+        fx.burst(p.x, p.y, c.fg, 14, 240);
+        fx.ring(p.x, p.y, c.muted, 30 + p.w * 0.16);
+        fx.shake(2);
       }),
-      bus.on('kill', (p) => fx.text(p.x, p.y - 20, `+${p.points}`, p.multiplier > 1 ? c.warn : c.text, 16 + Math.min(8, p.multiplier * 2))),
-      bus.on('combo', (p) => fx.text(e.width / 2, e.height * 0.32, t('game.combo', { mult: p.multiplier }), c.magenta, 28)),
+      bus.on('kill', (p) => fx.text(p.x, p.y - 20, `+${p.points}`, p.multiplier > 1 ? c.fg : c.muted, 15 + Math.min(6, p.multiplier))),
+      bus.on('combo', (p) => fx.text(e.width / 2, e.height * 0.32, t('game.combo', { mult: p.multiplier }), c.fg, 24)),
       bus.on('miss', (p) => {
-        fx.burst(p.x, p.y, c.danger, 26, 260);
-        fx.shake(9);
-        fx.flashScreen(c.danger);
+        fx.burst(p.x, p.y, c.muted, 18, 220);
+        fx.shake(6);
+        fx.flashScreen(c.fg);
       }),
-      bus.on('error', () => fx.shake(1.5)),
-      bus.on('purge', (p) => fx.burst(p.x, p.y, c.muted, 14, 200)),
-      bus.on('revive', () => fx.text(e.width / 2, e.height * 0.4, t('game.revive'), c.cyan, 30)),
+      bus.on('error', () => fx.shake(1.2)),
+      bus.on('purge', (p) => fx.burst(p.x, p.y, c.muted, 10, 180)),
+      bus.on('revive', () => fx.text(e.width / 2, e.height * 0.4, t('game.revive'), c.fg, 24)),
       bus.on('level', (p) => {
-        if (p.up && p.level > 1) fx.text(e.width / 2, e.height * 0.22, `${t('hud.level')} ${p.level}`, c.cyan, 26);
+        if (p.up && p.level > 1) fx.text(e.width / 2, e.height * 0.22, `${t('hud.level')} ${p.level}`, c.fg, 22);
       }),
     ];
   }
