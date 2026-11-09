@@ -12,7 +12,7 @@ export class Effects {
     this.texts = [];
     this.shakeAmp = 0;
     this.flash = 0;
-    this.flashColor = '#ffffff';
+    this.flashColor = '#7c3aed';
     this.enabled = true;
     this.shakeEnabled = true;
     this.fontFamily = 'monospace';
@@ -130,7 +130,7 @@ export class Effects {
     ctx.globalAlpha = 1;
 
     if (this.flash > 0) {
-      ctx.globalAlpha = this.flash * 0.3;
+      ctx.globalAlpha = this.flash * 0.4;
       ctx.fillStyle = this.flashColor;
       ctx.fillRect(-20, -20, W + 40, H + 40);
       ctx.globalAlpha = 1;

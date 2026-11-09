@@ -77,16 +77,17 @@ export class GameSession {
         r.aim = p.angle;
       }),
       bus.on('hit', (p) => {
-        fx.burst(p.x, p.y, c.fg, 14, 240);
-        fx.ring(p.x, p.y, c.muted, 30 + p.w * 0.16);
+        fx.burst(p.x, p.y, c.accentHi, 14, 240);
+        fx.burst(p.x, p.y, c.fg, 5, 160);
+        fx.ring(p.x, p.y, c.accent, 30 + p.w * 0.16);
         fx.shake(2);
       }),
-      bus.on('kill', (p) => fx.text(p.x, p.y - 20, `+${p.points}`, p.multiplier > 1 ? c.fg : c.muted, 15 + Math.min(6, p.multiplier))),
-      bus.on('combo', (p) => fx.text(e.width / 2, e.height * 0.32, t('game.combo', { mult: p.multiplier }), c.fg, 24)),
+      bus.on('kill', (p) => fx.text(p.x, p.y - 20, `+${p.points}`, p.multiplier > 1 ? c.accentHi : c.muted, 15 + Math.min(6, p.multiplier))),
+      bus.on('combo', (p) => fx.text(e.width / 2, e.height * 0.32, t('game.combo', { mult: p.multiplier }), c.accentHi, 24)),
       bus.on('miss', (p) => {
-        fx.burst(p.x, p.y, c.muted, 18, 220);
+        fx.burst(p.x, p.y, c.accentHi, 18, 220);
         fx.shake(6);
-        fx.flashScreen(c.fg);
+        fx.flashScreen(c.accent);
       }),
       bus.on('error', () => fx.shake(1.2)),
       bus.on('purge', (p) => fx.burst(p.x, p.y, c.muted, 10, 180)),
