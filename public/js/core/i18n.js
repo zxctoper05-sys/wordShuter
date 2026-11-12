@@ -35,7 +35,7 @@ export function setLang(next) {
   lang = next;
   numberFormat = new Intl.NumberFormat(next === 'ru' ? 'ru' : 'en');
   document.documentElement.lang = next;
-  document.title = t('app.title');
+  document.title = `${t('app.title')} — ${t('app.tagline')}`;
   applyTranslations(document);
   bus.emit('langchange', next);
 }

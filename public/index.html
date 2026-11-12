@@ -3,48 +3,58 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover, interactive-widget=resizes-content">
-  <meta name="theme-color" content="#08070c">
+  <meta name="theme-color" content="#07060d">
   <meta name="color-scheme" content="dark">
-  <title>Word Shooter</title>
-  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' fill='%2308070c'/%3E%3Crect x='10' y='10' width='44' height='44' fill='none' stroke='%23a78bfa' stroke-width='5'/%3E%3Crect x='24' y='28' width='16' height='8' fill='%237c3aed'/%3E%3C/svg%3E">
+  <title>Word Shooter — Печатай быстро — стреляй точно</title>
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%2307060d'/%3E%3Ccircle cx='32' cy='32' r='17' fill='none' stroke='%23a78bfa' stroke-width='4'/%3E%3Crect x='24' y='27' width='16' height='10' rx='3' fill='%23a855f7'/%3E%3C/svg%3E">
   <link rel="stylesheet" href="css/styles.css">
 </head>
 <body>
 <div id="app">
 
-  <!-- Меню -->
+  <!-- ───────── Главное меню ───────── -->
   <section id="screen-menu" class="screen active" aria-labelledby="menu-title">
     <div class="col">
-      <header class="head">
-        <h1 id="menu-title">Word <span>Shooter</span></h1>
+      <div class="topbar">
         <div class="seg seg-sm" role="group" data-setting="uiLang" aria-label="Язык интерфейса / Interface language">
           <button type="button" data-value="ru">RU</button>
           <button type="button" data-value="en">EN</button>
         </div>
-      </header>
-
-      <button type="button" id="btn-play" class="btn primary big" data-i18n="menu.play">Играть</button>
-
-      <div class="meta-row">
-        <p id="menu-record" role="status"></p>
-        <p id="dict-info" role="status"></p>
       </div>
 
-      <div class="setting">
+      <header class="brand">
+        <svg class="logo" viewBox="0 0 64 64" aria-hidden="true">
+          <circle cx="32" cy="32" r="21" fill="none" stroke="currentColor" stroke-width="2.5"/>
+          <path d="M32 5v13M32 46v13M5 32h13M46 32h13" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"/>
+          <rect x="23" y="26" width="18" height="12" rx="3" fill="#a855f7"/>
+        </svg>
+        <div>
+          <h1 id="menu-title">Word Shooter</h1>
+          <p class="tagline" data-i18n="app.tagline">Печатай быстро — стреляй точно</p>
+        </div>
+      </header>
+
+      <div class="play-block">
+        <button type="button" id="btn-play" class="btn primary big" data-i18n="menu.play">Играть</button>
+        <p id="menu-record" class="record" role="status"></p>
+      </div>
+
+      <section class="group">
         <h2 id="lbl-glang" data-i18n="menu.gameLang">Язык слов</h2>
         <div class="seg" role="group" data-setting="gameLang" aria-labelledby="lbl-glang">
           <button type="button" data-value="ru" data-i18n="lang.ru">Русский</button>
           <button type="button" data-value="en" data-i18n="lang.en">English</button>
         </div>
-      </div>
+        <p id="dict-info" class="hint" role="status"></p>
+      </section>
 
       <section class="group">
-        <h2 id="lbl-mode" data-i18n="menu.mode">Режим</h2>
+        <h2 id="lbl-mode" data-i18n="menu.mode">Режим игры</h2>
         <div class="modes" role="group" data-setting="mode" aria-labelledby="lbl-mode">
-          <button type="button" class="mode" data-value="classic"><strong data-i18n="mode.classic">Классика</strong><span data-i18n="mode.classic.desc">10 уровней, 5 жизней</span></button>
-          <button type="button" class="mode" data-value="survival"><strong data-i18n="mode.survival">Выживание</strong><span data-i18n="mode.survival.desc">3 жизни, до конца</span></button>
-          <button type="button" class="mode" data-value="timeattack"><strong data-i18n="mode.timeattack">На время</strong><span data-i18n="mode.timeattack.desc">90 секунд</span></button>
-          <button type="button" class="mode" data-value="endless"><strong data-i18n="mode.endless">Бесконечный</strong><span data-i18n="mode.endless.desc">Без поражения</span></button>
+          <button type="button" class="mode" data-value="classic"><strong data-i18n="mode.classic">Классика</strong><span data-i18n="mode.classic.desc">10 уровней, всё быстрее. Пройди все — победишь.</span></button>
+          <button type="button" class="mode" data-value="survival"><strong data-i18n="mode.survival">Выживание</strong><span data-i18n="mode.survival.desc">3 жизни. Сложность растёт каждые 20 секунд.</span></button>
+          <button type="button" class="mode" data-value="timeattack"><strong data-i18n="mode.timeattack">На время</strong><span data-i18n="mode.timeattack.desc">90 секунд. Набери как можно больше очков.</span></button>
+          <button type="button" class="mode" data-value="endless"><strong data-i18n="mode.endless">Бесконечный</strong><span data-i18n="mode.endless.desc">Без конца. Потерял все жизни — сложность падает, игра идёт.</span></button>
         </div>
       </section>
 
@@ -55,11 +65,11 @@
     </div>
   </section>
 
-  <!-- Игра -->
+  <!-- ───────── Игра ───────── -->
   <section id="screen-game" class="screen" aria-label="Word Shooter">
     <header class="hud">
       <div class="stat s-score"><span class="lbl" data-i18n="hud.score">Очки</span><span class="val" id="hud-score">0</span></div>
-      <div class="stat s-lives"><span class="lbl" data-i18n="hud.lives">Жизни</span><span class="val lives" id="hud-lives">■■■</span></div>
+      <div class="stat s-lives"><span class="lbl" data-i18n="hud.lives">Жизни</span><span class="val lives" id="hud-lives">♥♥♥</span></div>
       <div class="stat s-combo"><span class="lbl" data-i18n="hud.combo">Комбо</span><span class="val" id="hud-combo">0</span></div>
       <div class="stat s-words"><span class="lbl" data-i18n="hud.words">Слова</span><span class="val" id="hud-words">0</span></div>
       <div class="stat s-level"><span class="lbl" data-i18n="hud.level">Уровень</span><span class="val" id="hud-level">1</span></div>
@@ -67,14 +77,14 @@
       <div class="stat s-acc"><span class="lbl" data-i18n="hud.accuracy">Точность</span><span class="val" id="hud-acc">100%</span></div>
       <div class="stat s-time" id="hud-time-cell"><span class="lbl" id="hud-time-label">Время</span><span class="val" id="hud-time">0:00</span></div>
       <button type="button" id="btn-pause" class="pause-btn" data-i18n-attr="aria-label:hud.pause;title:hud.pause" aria-label="Пауза" title="Пауза">
-        <svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><rect x="6" y="5" width="4" height="14" fill="currentColor"/><rect x="14" y="5" width="4" height="14" fill="currentColor"/></svg>
+        <svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true"><rect x="6" y="5" width="4" height="14" rx="1" fill="currentColor"/><rect x="14" y="5" width="4" height="14" rx="1" fill="currentColor"/></svg>
       </button>
     </header>
 
     <div class="field" id="field">
       <canvas id="canvas" aria-hidden="true"></canvas>
 
-      <div class="overlay" id="overlay-loading"><p class="loading" data-i18n="game.loading">Загрузка…</p></div>
+      <div class="overlay" id="overlay-loading"><p class="loading" data-i18n="game.loading">Загружаю слова…</p></div>
       <div class="overlay" id="overlay-count"><span id="count-num" class="count"></span></div>
 
       <div class="overlay" id="overlay-error" role="alert">
@@ -92,9 +102,9 @@
           <h2 id="pause-title" data-i18n="pause.title">Пауза</h2>
           <div class="stack">
             <button type="button" class="btn primary" id="btn-resume" data-i18n="pause.resume">Продолжить</button>
-            <button type="button" class="btn" id="btn-restart" data-i18n="pause.restart">Заново</button>
-            <button type="button" class="btn" id="btn-finish" data-i18n="pause.finish">Завершить</button>
-            <button type="button" class="btn ghost" id="btn-quit" data-i18n="pause.menu">Выйти без сохранения</button>
+            <button type="button" class="btn" id="btn-restart" data-i18n="pause.restart">Начать заново</button>
+            <button type="button" class="btn" id="btn-finish" data-i18n="pause.finish">Завершить и показать итог</button>
+            <button type="button" class="btn ghost" id="btn-quit" data-i18n="pause.menu">В меню без сохранения</button>
           </div>
         </div>
       </div>
@@ -103,51 +113,51 @@
     <div class="inputbar">
       <input id="typed" type="text" inputmode="text" enterkeyhint="done" autocomplete="off" autocorrect="off"
              autocapitalize="off" spellcheck="false" maxlength="24"
-             data-i18n-attr="placeholder:game.input;aria-label:game.input" placeholder="Слово" aria-label="Слово">
+             data-i18n-attr="placeholder:game.input;aria-label:game.input" placeholder="Печатайте слово" aria-label="Печатайте слово">
     </div>
     <div class="vkb" id="vkb" aria-hidden="true"></div>
   </section>
 
-  <!-- Итоги -->
+  <!-- ───────── Итоги ───────── -->
   <section id="screen-results" class="screen" aria-labelledby="res-title">
     <div class="col">
-      <h1 id="res-title" class="page-title"></h1>
+      <h1 id="res-title" class="res-title"></h1>
       <div id="res-records" class="records" hidden></div>
       <dl class="stat-grid">
-        <div class="cell cell-main"><dt data-i18n="result.score">Счёт</dt><dd id="res-score">0</dd></div>
-        <div class="cell"><dt data-i18n="result.words">Слов</dt><dd id="res-words">0</dd></div>
+        <div class="cell cell-main"><dt data-i18n="result.score">Итоговый счёт</dt><dd id="res-score">0</dd></div>
+        <div class="cell"><dt data-i18n="result.words">Уничтожено слов</dt><dd id="res-words">0</dd></div>
         <div class="cell"><dt data-i18n="result.avgWpm">Средний WPM</dt><dd id="res-avg">0</dd></div>
-        <div class="cell"><dt data-i18n="result.maxWpm">Макс. WPM</dt><dd id="res-max">0</dd></div>
+        <div class="cell"><dt data-i18n="result.maxWpm">Максимальный WPM</dt><dd id="res-max">0</dd></div>
         <div class="cell"><dt data-i18n="result.accuracy">Точность</dt><dd id="res-acc">0%</dd></div>
-        <div class="cell"><dt data-i18n="result.combo">Комбо</dt><dd id="res-combo">0</dd></div>
-        <div class="cell"><dt data-i18n="result.duration">Время</dt><dd id="res-time">0:00</dd></div>
-        <div class="cell cell-wide"><dt data-i18n="result.level">Уровень</dt><dd id="res-level">1</dd></div>
+        <div class="cell"><dt data-i18n="result.combo">Лучшее комбо</dt><dd id="res-combo">0</dd></div>
+        <div class="cell"><dt data-i18n="result.duration">Длительность</dt><dd id="res-time">0:00</dd></div>
+        <div class="cell cell-wide"><dt data-i18n="result.level">Достигнут уровень</dt><dd id="res-level">1</dd></div>
       </dl>
-      <p id="res-save" class="meta" role="status"></p>
+      <p id="res-save" class="hint" role="status"></p>
       <div class="row">
-        <button type="button" id="btn-again" class="btn primary" data-i18n="result.again">Ещё раз</button>
+        <button type="button" id="btn-again" class="btn primary" data-i18n="result.again">Играть снова</button>
         <button type="button" class="btn" data-nav="menu" data-i18n="result.menu">В меню</button>
       </div>
     </div>
   </section>
 
-  <!-- Статистика -->
+  <!-- ───────── Статистика ───────── -->
   <section id="screen-stats" class="screen" aria-labelledby="stats-title">
     <div class="col wide">
       <header class="bar">
         <button type="button" class="btn" data-nav="menu" data-i18n="common.back">Назад</button>
-        <h1 id="stats-title" class="page-title" data-i18n="stats.title">Статистика</h1>
+        <h1 id="stats-title" data-i18n="stats.title">Статистика</h1>
       </header>
       <div id="stats-body" role="region" aria-live="polite"></div>
     </div>
   </section>
 
-  <!-- Настройки -->
+  <!-- ───────── Настройки ───────── -->
   <section id="screen-settings" class="screen" aria-labelledby="settings-title">
     <div class="col">
       <header class="bar">
         <button type="button" class="btn" data-nav="menu" data-i18n="common.back">Назад</button>
-        <h1 id="settings-title" class="page-title" data-i18n="settings.title">Настройки</h1>
+        <h1 id="settings-title" data-i18n="settings.title">Настройки</h1>
       </header>
 
       <div class="setting">
@@ -159,7 +169,7 @@
       </div>
 
       <div class="setting">
-        <h2 id="s-glang" data-i18n="settings.gameLang">Язык слов</h2>
+        <h2 id="s-glang" data-i18n="settings.gameLang">Язык слов в игре</h2>
         <div class="seg" role="group" data-setting="gameLang" aria-labelledby="s-glang">
           <button type="button" data-value="ru" data-i18n="lang.ru">Русский</button>
           <button type="button" data-value="en" data-i18n="lang.en">English</button>
@@ -167,7 +177,10 @@
       </div>
 
       <div class="setting">
-        <h2 id="s-common" data-i18n="settings.commonOnly">Только частые слова</h2>
+        <div class="setting-text">
+          <h2 id="s-common" data-i18n="settings.commonOnly">Только частые слова</h2>
+          <p class="hint" data-i18n="settings.commonOnly.hint">Выключите, чтобы в игре попадались и редкие слова из полного словаря.</p>
+        </div>
         <div class="seg" role="group" data-setting="commonOnly" aria-labelledby="s-common">
           <button type="button" data-value="true" data-i18n="common.on">Вкл</button>
           <button type="button" data-value="false" data-i18n="common.off">Выкл</button>
@@ -175,7 +188,10 @@
       </div>
 
       <div class="setting">
-        <h2 id="s-kbd" data-i18n="settings.keyboard">Экранная клавиатура</h2>
+        <div class="setting-text">
+          <h2 id="s-kbd" data-i18n="settings.keyboard">Экранная клавиатура</h2>
+          <p class="hint" data-i18n="settings.keyboard.hint">Автоматически включается на сенсорных экранах.</p>
+        </div>
         <div class="seg" role="group" data-setting="keyboard" aria-labelledby="s-kbd">
           <button type="button" data-value="auto" data-i18n="settings.keyboard.auto">Авто</button>
           <button type="button" data-value="on" data-i18n="common.on">Вкл</button>
@@ -184,7 +200,7 @@
       </div>
 
       <div class="setting">
-        <h2 id="s-fx" data-i18n="settings.effects">Эффекты</h2>
+        <h2 id="s-fx" data-i18n="settings.effects">Частицы и вспышки</h2>
         <div class="seg" role="group" data-setting="effects" aria-labelledby="s-fx">
           <button type="button" data-value="true" data-i18n="common.on">Вкл</button>
           <button type="button" data-value="false" data-i18n="common.off">Выкл</button>

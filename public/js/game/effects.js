@@ -12,7 +12,7 @@ export class Effects {
     this.texts = [];
     this.shakeAmp = 0;
     this.flash = 0;
-    this.flashColor = '#7c3aed';
+    this.flashColor = '#e879f9';
     this.enabled = true;
     this.shakeEnabled = true;
     this.fontFamily = 'monospace';
@@ -103,13 +103,14 @@ export class Effects {
 
   draw(ctx, W, H) {
     ctx.save();
+    ctx.globalCompositeOperation = 'lighter';
     for (const p of this.parts) {
       if (!p.on) continue;
       ctx.globalAlpha = Math.max(0, p.life / p.max);
       ctx.fillStyle = p.color;
       ctx.fillRect(p.x - p.size / 2, p.y - p.size / 2, p.size, p.size);
     }
-    ctx.lineWidth = 1;
+    ctx.lineWidth = 2;
     for (const r of this.rings) {
       ctx.globalAlpha = 1 - r.t / r.life;
       ctx.strokeStyle = r.color;
@@ -124,13 +125,13 @@ export class Effects {
     for (const tx of this.texts) {
       ctx.globalAlpha = Math.min(1, (tx.life / tx.max) * 1.6);
       ctx.fillStyle = tx.color;
-      ctx.font = `600 ${tx.size}px ${this.fontFamily}`;
+      ctx.font = `700 ${tx.size}px ${this.fontFamily}`;
       ctx.fillText(tx.str, tx.x, tx.y);
     }
     ctx.globalAlpha = 1;
 
     if (this.flash > 0) {
-      ctx.globalAlpha = this.flash * 0.4;
+      ctx.globalAlpha = this.flash * 0.35;
       ctx.fillStyle = this.flashColor;
       ctx.fillRect(-20, -20, W + 40, H + 40);
       ctx.globalAlpha = 1;
